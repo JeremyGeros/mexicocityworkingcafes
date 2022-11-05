@@ -1,11 +1,11 @@
 <div class='flex'>
 
   <div class='w-1/6 border-r border-r-main-border px-8 pt-20 min-h-screen'>
-    <a href="<%= cafes_path %>" class='flex items-center px-4 py-2 hover:bg-zinc-800 rounded cursor-pointer mb-2 <%= class_if(@filtered_params.empty?, 'bg-blue') %>'>
+    <a href="<%= root_path %>" class='flex items-center px-4 py-2 hover:bg-zinc-800 rounded cursor-pointer mb-2 <%= class_if(@filtered_params.empty?, 'bg-blue') %>'>
       <h3>All</h3>
     </a>
     <% @filters.each do |filter_key, filter_data| %>
-      <a href="<%= @filtered_params[filter_key].present? ? cafes_path(@filtered_params.except(filter_key)) : cafes_path(@filtered_params.merge({ filter_key => filter_data[:param] })) %>" class='flex items-center px-4 py-2 hover:bg-zinc-800 rounded cursor-pointer mb-2 <%= class_if(@filtered_params[filter_key].present?, 'bg-blue') %>'>
+      <a href="<%= @filtered_params[filter_key].present? ? root_path(@filtered_params.except(filter_key)) : root_path(@filtered_params.merge({ filter_key => filter_data[:param] })) %>" class='flex items-center px-4 py-2 hover:bg-zinc-800 rounded cursor-pointer mb-2 <%= class_if(@filtered_params[filter_key].present?, 'bg-blue') %>'>
         <div class='mr-2'>
           <%= icon(filter_data[:icon], icon_color: filter_data[:icon_color]) %>
         </div>
