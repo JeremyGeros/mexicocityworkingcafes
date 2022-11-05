@@ -1,0 +1,26 @@
+<%= form_with(model: [cafe], local: true) do |form| %>
+
+  <div class='flex flex-col '>
+    <div class='flex-1'>
+    <h2 class='font-serif font-bold mt-2 leading-7 text-4xl mb-4'><%= form.text_field :name, placeholder: 'Name', class: 'text-input w-full text-2xl' %></h2>
+  </div>
+
+  <label class='border-gray-700 border rounded p-4 my-4 w-48'>
+    <p>Hero image</p>
+    <%= form.file_field :hero_image %>
+  </label>
+
+  <label class='border-gray-700 border rounded p-4 my-4 w-48'>
+    <p>Other images</p>
+    <%= form.file_field :images %>
+  </label>
+
+  <label class='border-gray-700 border rounded p-4 my-4 w-48'>
+    <p>Speed test</p>
+    <%= form.file_field :speed_test %>
+  </label>
+
+  <div class="actions my-10">
+    <%= form.submit 'Save', class: 'btn btn-primary' %>
+  </div>
+<% end %>

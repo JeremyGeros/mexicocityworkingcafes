@@ -1,0 +1,100 @@
+<div class='flex'>
+
+  <div class='w-1/6 border-r border-r-main-border px-8 pt-20 min-h-screen'>
+    <a href="<%= cafes_path %>" class='flex items-center px-4 py-2 hover:bg-zinc-800 rounded cursor-pointer mb-2 <%= class_if(@filtered_params.empty?, 'bg-blue') %>'>
+      <h3>All</h3>
+    </a>
+    <% @filters.each do |filter_key, filter_data| %>
+      <a href="<%= @filtered_params[filter_key].present? ? cafes_path(@filtered_params.except(filter_key)) : cafes_path(@filtered_params.merge({ filter_key => filter_data[:param] })) %>" class='flex items-center px-4 py-2 hover:bg-zinc-800 rounded cursor-pointer mb-2 <%= class_if(@filtered_params[filter_key].present?, 'bg-blue') %>'>
+        <div class='mr-2'>
+          <%= icon(filter_data[:icon], icon_color: filter_data[:icon_color]) %>
+        </div>
+        <h3><%= filter_data[:name] %></h3>
+      </a>
+    <% end %>
+  </div>
+
+  <div class='flex-1 overflow-scroll'>
+    <div class='w-fit h-fit'>
+      <h1 class="text-3xl p-3 font-bold font-serif border-b border-b-dark-border">Mexico City Working Cafes</h1>
+
+      <div class=''>
+        <div class='sticky top-0'>
+          <div class='flex px-2 py-2'>
+            <div class='w-[16px] mr-2'></div>
+            <div class='w-72 px-2'>Name</div>
+            <div class='w-[100px] px-2'>Rating</div>
+            <div class='w-20 text-center px-2'>Coffee</div>
+            <div class='w-20 text-center px-2'>Plugs?</div>
+            <div class='w-24 px-2'>Seating</div>
+            <div class='w-48 px-2'>Outdoor</div>
+            <div class='w-48 px-2'>CDMX Wifi</div>
+            <div class='w-48 px-2'>Food</div>
+            <div class='w-60 px-2'>Other People Working</div>
+            <div class='w-80 px-2'>Calls</div>
+            <div class='w-96 px-2'>Notes</div>
+            <div class='w-96 px-2'>Address</div>
+          </div>
+        </div>
+
+        <% @cafes_by_area.each do |area, cafes| %>
+          <h2 class='text-xl bg-main-gray p-2'><%= area.gsub("area_", '').gsub("_", " ").titleize %></h2>
+          <div class=''>
+            <% cafes.each_with_index do |cafe, index| %>
+              <%= link_to cafe, class: "px-2 py-4 relative block flex border-b border-b-dark-border items-center hover:bg-main-hover", data: { cafe: cafe.name.parameterize }  do %>
+                <div class='mr-2'>
+                  <%= icon('wifi', icon_color: color_for_rating(cafe.wifi_before_type_cast)) %>
+                </div>
+                <h2 class="w-72 px-2"><%= cafe.name %></h2>
+
+                <div class="w-[100px] px-2">
+                  <%= render 'cafes/star_rating', model: cafe, field: :overall_rating, size: 5 %>
+                </div>
+
+                <div class="w-20 px-2 flex justify-center">
+                  <%= icon('coffee', icon_color: color_for_rating(cafe.coffee_before_type_cast)) %>
+                </div>
+
+                <div class="w-20 px-2 flex justify-center">
+                  <%= icon('plugs', icon_color: color_for_bool(cafe.plugs)) %>
+                </div>
+
+                <div class='w-24 px-2'>
+                  <%= cafe.seating %>
+                </div>
+
+                <div class='w-48 px-2'>
+                  <%= cafe.outdoor %>
+                </div>
+
+                <div class='w-48 px-2'>
+                  <%= cafe.cdmx_wifi %>
+                </div>
+
+                <div class='w-48 px-2'>
+                  <%= cafe.food %>
+                </div>
+
+                <div class='w-60 px-2'>
+                  <%= cafe.other_people_working %>
+                </div>
+
+                <div class='w-80 px-2'>
+                  <%= cafe.calls %>
+                </div>
+
+                <div class='w-96 px-2'>
+                  <%= cafe.notes %>
+                </div>
+
+                <div class='w-96 px-2'>
+                  <%= cafe.clean_address %>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
