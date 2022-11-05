@@ -81,6 +81,3 @@ test:
 #
 production:
   <<: *default
-  database: mexicocityworkingcafes_production
-  username: mexicocityworkingcafes
-  password: <%= ENV["MEXICOCITYWORKINGCAFES_DATABASE_PASSWORD"] %>
