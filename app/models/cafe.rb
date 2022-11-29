@@ -37,4 +37,18 @@ class Cafe < ApplicationRecord
       .gsub(/, Cuauhtémoc.+/, '')
   end
 
+  def as_json(options = {})
+    json = super(options)
+    json[:coffee] = coffee_before_type_cast
+    json[:wifi] = wifi_before_type_cast
+    json[:wifi] = wifi_before_type_cast
+
+    ac = ActionController::Base.new
+    ac.view_context_class.include(ActionView::Helpers, ApplicationHelper)
+    rating_html = ac.render_to_string(partial: "cafes/star_rating", locals: { model: self, field: :overall_rating, size: 5 })
+    json['rating_html'] = rating_html
+
+    json
+  end
+
 end

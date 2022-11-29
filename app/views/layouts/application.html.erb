@@ -3,6 +3,9 @@
   <head>
     <title>Mexico City Working Cafes</title>
 
+    <meta name="description" content="Some of the best cafes in Mexico City for working">
+    <meta name="keywords" content="Mexico City, CDMX, Cafes, Working Cafes, Working, Mexico, Remote work, ">
+
     <meta name="viewport" content="width=device-width,initial-scale=1">
     
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -15,6 +18,9 @@
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+
     <%= javascript_importmap_tags %>
 
     <link rel="stylesheet" type="text/css" href="https://cloud.typography.com/6915652/6078012/css/fonts.css" />
@@ -26,5 +32,7 @@
     <main class="<% unless params[:full_size] %> <% end %>">
       <%= yield %>
     </main>
+
+    <div id="tooltip" role="tooltip"></div>
   </body>
 </html>

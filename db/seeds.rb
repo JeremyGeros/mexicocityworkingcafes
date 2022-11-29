@@ -7,13 +7,12 @@
 #   Character.create(name: "Luke", movie: movies.first)
 require 'csv'
 
-
-Cafe.destroy_all
-
 CSV.foreach(Rails.root.join('lib/cafes.csv'), headers: true) do |row|
   next if row['Wifi'].blank?
+
+  @cafe = Cafe.find_by(name: row['Name']) || Cafe.new
   
-  Cafe.create(
+  @cafe.update!(
     name: row['Name'],
     wifi: row['Wifi'].to_i - 1,
     wifi_name: row['Wifi/Password']&.split('/')&.first,
@@ -29,6 +28,9 @@ CSV.foreach(Rails.root.join('lib/cafes.csv'), headers: true) do |row|
     overall_rating: row['Overall'].to_i,
     notes: row['Notes'],
     address: row['Address'],
-    area: "area_#{row['Area'].downcase.gsub(' ', '_')}".to_sym
+    area: "area_#{row['Area'].downcase.gsub(' ', '_')}".to_sym,
+    google_link: row['Map Link'],
+    upload_speed: row['Upload Speed'].to_i,
+    download_speed: row['Download Speed'].to_i,
   )
 end

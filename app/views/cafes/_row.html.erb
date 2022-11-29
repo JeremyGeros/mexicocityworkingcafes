@@ -1,0 +1,38 @@
+<tr class="px-2 py-4 border-b border-b-dark-border hover:bg-main-hover cafe-row" data-cafe-information="<%= cafe.to_json.to_s %>">
+  <td class='w-[16px] mr-2 px-2 py-4'>
+    <%= icon('wifi', icon_color: color_for_rating(cafe.wifi_before_type_cast)) %>
+  </td>
+  <td><h2 class="px-2"><%= cafe.name %></h2></td>
+
+  <td class="min-w-[100px] px-2">
+    <div class='flex justify-center'>
+      <%= render 'cafes/star_rating', model: cafe, field: :overall_rating, size: 5 %>
+    </div>
+  </td>
+
+  <td class="w-20 px-2">
+    <div class='flex justify-center'>
+      <%= icon('coffee', icon_color: color_for_rating(cafe.coffee_before_type_cast)) %>
+    </div>
+  </td>
+
+  <td class="w-20 px-2">
+    <div class='flex justify-center'>
+      <%= icon('plugs', icon_color: color_for_bool(cafe.plugs)) %>
+    </div>
+  </td>
+
+  <td class='px-2'>
+    <%= cafe.seating %>
+  </td>
+
+  <td class='px-2'>
+    <%= cafe.outdoor %>
+  </td>
+
+  <td class='px-2'>
+    <%= cafe.cdmx_wifi %>
+  </td>
+
+
+</tr>
