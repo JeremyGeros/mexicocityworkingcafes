@@ -37,6 +37,10 @@ class CafesController < ApplicationController
       @cafes = @cafes.where('calls_rating >= ?', params[:calls].to_i)
     end
 
+    if params[:random].present?
+      @cafes = [@cafes.all.sample]
+    end
+
     @cafes_by_area = @cafes.group_by(&:area)
   end
 
@@ -106,6 +110,13 @@ class CafesController < ApplicationController
         full_food_menu: {
           name: 'Full food menu',
           icon: 'cake',
+          icon_color: '#fff',
+          param: true,
+        },
+
+        random: {
+          name: 'Random Cafe', 
+          icon: 'boiler',
           icon_color: '#fff',
           param: true,
         },
