@@ -44,35 +44,35 @@
               <!-- Replace with your content -->
               <div>
                 <div class="relative h-40 sm:h-56">
-                  <img class="absolute h-full w-full object-cover" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi0.wp.com%2Fookiedough.org%2Fwp-content%2Fuploads%2F2019%2F07%2FAlmanegra-Caf%25C3%25A9-Mexico-City-1.jpg%3Ffit%3D2000%252C1333%26ssl%3D1&f=1&nofb=1&ipt=2247313888f2ed2430e46b6f5e42945135e5cf98e42dc486d7f944b13f6d1059&ipo=images" alt="">
+                  <img class="absolute h-full w-full object-cover" data-slide-over-target='image' src="" alt="">
                 </div>
               </div>
 
               <div class="mt-6 px-4 sm:mt-8 sm:px-6">
-                <div class='flex w-full mb-4'>
+                <div class='flex w-full mb-6'>
                   <div class='flex-1 '>
-                    <h4 class='mb-2 text-slate-300 italic'>Rating</h4>
+                    <h4 class='mb-1 text-slate-400 italic'>Rating</h4>
                     <div class='' data-slide-over-target='rating'>
                     </div>
                   </div>
 
                   <div class='flex-1'>
-                    <h4 class='mb-2 text-slate-300 italic'>Coffee</h4>
+                    <h4 class='mb-1 text-slate-400 italic'>Coffee</h4>
                     <div class=''>
                       <%= icon('coffee', icon_color: '#fff') %>
                     </div>
                   </div>
 
                   <div class='flex-1'>
-                    <h4 class='mb-2 text-slate-300 italic'>Plugs</h4>
+                    <h4 class='mb-1 text-slate-400 italic'>Plugs</h4>
                     <div class=''>
                       <%= icon('plugs', icon_color: '#fff') %>
                     </div>
                   </div>
                 </div>
 
-                <div class='w-full'>
-                  <h4 class='mb-2 text-slate-300 italic'>Wifi</h4>
+                <div class='w-full mb-6'>
+                  <h4 class='mb-1 text-slate-400 italic'>Wifi</h4>
                   <div class='flex items-center'>
                     <%= icon('wifi', icon_color: '#fff') %>
                     <div class='flex-1 flex justify-center items-center'>
@@ -81,12 +81,65 @@
                       <%= icon('upload', icon_color: '#b477f7') %>
                       <span class='ml-2' data-slide-over-target='uploadSpeed'>7mbps</span>
                     </div>
-                    <div class='w-1/2' data-bs-toggle="tooltip" title="Click to copy password" data-action='click->slide-over#copy'>
+                    <div class='w-5/12' data-bs-toggle="tooltip" title="Click to copy password" data-action='click->slide-over#copy'>
                       <div class='text-xs break-all'>Name: <span data-slide-over-target='wifiName'></span></div>
                       <div class='text-xs break-all'>Password: <span data-slide-over-target='wifiPassword'></span></div>
-                    <div>
+                    </div>
                   </div>
                 </div>
+
+                <div class='w-full mb-6 flex'>
+                  <div class='flex-1'>
+                    <h4 class='mb-1 text-slate-400 italic'>Seating</h4>
+                    <div class='' data-slide-over-target='seating'></div>
+                  </div>
+                  <div class='flex-1'>
+                    <h4 class='mb-1 text-slate-400 italic'>Outdoor</h4>
+                    <div class='' data-slide-over-target='outdoorSeating'></div>
+                  </div>
+                </div>
+                
+                <div class='w-full mb-6 flex'>
+                  <div class='flex-1'>
+                    <h4 class='mb-1 text-slate-400 italic'>Other people working</h4>
+                    <div class='' data-slide-over-target='otherPeopleWorking'></div>
+                  </div>
+                  <div class='flex-1'>
+                    <h4 class='mb-1 text-slate-400 italic'>Food</h4>
+                    <div class='' data-slide-over-target='food'></div>
+                  </div>
+                </div>
+
+                <div class='w-full mb-6'>
+                  <h4 class='mb-1 text-slate-400 italic'>Calls</h4>
+                  <div class='flex items-center' data-slide-over-target='calls'>
+
+                  </div>
+                </div>
+
+                <div class='w-full mb-6'>
+                  <h4 class='mb-1 text-slate-400 italic'>Notes</h4>
+                  <div class='flex items-center' data-slide-over-target='notes'>
+          
+                  </div>
+                </div>
+
+
+                <div class='w-full mb-2'>
+                  <h4 class='mb-1 text-slate-400 italic'>Address</h4>
+                  <div class='flex items-center' data-slide-over-target='address'>
+          
+                  </div>
+                </div>
+
+                <a src='#' target="_blank" data-slide-over-target='googleMapsLink' class='relative block'>
+                  <div class='w-full h-48 rounded overflow-hidden' data-slide-over-target='map'>
+                  </div>
+
+                  <div class='w-full h-48 cursor-pointer absolute inset-0 outline outline-transparent outline-offset-0 hover:outline-blue-light rounded'>
+                  </div>
+                </a>
+
               </div>
               <!-- /End replace -->
             </div>

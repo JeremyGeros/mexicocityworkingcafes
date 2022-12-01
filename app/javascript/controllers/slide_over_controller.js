@@ -24,6 +24,16 @@ export default class extends Controller {
 			'wifiPassword',
 			'downloadSpeed',
 			'uploadSpeed',
+			'map',
+			'googleMapsLink',
+			'seating',
+			'outdoorSeating',
+			'address',
+			'notes',
+			'calls',
+			'food',
+			'otherPeopleWorking',
+			'image',
 		];
 	}
 
@@ -108,6 +118,22 @@ export default class extends Controller {
 
 		this.downloadSpeedTarget.innerText = cafeInformation.download_speed;
 		this.uploadSpeedTarget.innerText = cafeInformation.upload_speed;
+
+		this.seatingTarget.innerText = cafeInformation.seating;
+		this.outdoorSeatingTarget.innerText = cafeInformation.outdoor;
+
+		this.addressTarget.innerText = cafeInformation.address;
+		this.notesTarget.innerText = cafeInformation.notes;
+		this.callsTarget.innerText = cafeInformation.calls;
+		this.foodTarget.innerText = cafeInformation.food;
+		this.otherPeopleWorkingTarget.innerText =
+			cafeInformation.other_people_working;
+
+		this.imageTarget.src = cafeInformation.image_link;
+
+		this.googleMapsLinkTarget.href = cafeInformation.google_link;
+
+		this.initMap();
 	}
 
 	copy() {
@@ -117,6 +143,29 @@ export default class extends Controller {
 			this.wifiPasswordTarget.innerHTML =
 				this.cafeInformationValue.wifi_password;
 		}, 5000);
+	}
+
+	initMap() {
+		const cafe = {
+			lat: this.cafeInformationValue.latitude,
+			lng: this.cafeInformationValue.longitude,
+		};
+
+		const map = new google.maps.Map(this.mapTarget, {
+			zoom: 15,
+			center: cafe,
+			disableDefaultUI: true,
+			disableDoubleClickZoom: true,
+			draggable: false,
+			keyboardShortcuts: false,
+			panControl: false,
+			zoomControl: false,
+		});
+
+		const marker = new google.maps.Marker({
+			position: cafe,
+			map: map,
+		});
 	}
 
 	getColorForRating(rating) {

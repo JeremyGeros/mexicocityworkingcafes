@@ -32,5 +32,7 @@ CSV.foreach(Rails.root.join('lib/cafes.csv'), headers: true) do |row|
     google_link: row['Map Link'],
     upload_speed: row['Upload Speed'].to_i,
     download_speed: row['Download Speed'].to_i,
+    image_link: row['Image Link'],
+    calls_rating: row['Calls Rating'],
   )
 end

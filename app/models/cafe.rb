@@ -1,6 +1,4 @@
 class Cafe < ApplicationRecord
-  has_rich_text :notes
-  
   has_one_attached :hero_image do |attachable|
     attachable.variant :thumb, resize: "100x100"
   end
@@ -10,6 +8,8 @@ class Cafe < ApplicationRecord
   end
 
   has_many_attached :images
+
+  geocoded_by :address
 
   validates :name, :wifi, presence: true
 
@@ -40,7 +40,6 @@ class Cafe < ApplicationRecord
   def as_json(options = {})
     json = super(options)
     json[:coffee] = coffee_before_type_cast
-    json[:wifi] = wifi_before_type_cast
     json[:wifi] = wifi_before_type_cast
 
     ac = ActionController::Base.new
