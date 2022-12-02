@@ -41,6 +41,10 @@ class CafesController < ApplicationController
       @cafes = [@cafes.all.sample]
     end
 
+    if params[:location].present?
+      @cafes = @cafes.where(area: params[:location])
+    end
+
     @cafes_by_area = @cafes.group_by(&:area)
   end
 
@@ -122,7 +126,23 @@ class CafesController < ApplicationController
         },
       }
 
-      @filtered_params = params.permit(@filters.keys)
+      @location_filters = {
+        roma_norte: {
+          name: 'Roma Norte',
+          icon: '',
+          icon_color: '#fff',
+          param: :area_roma_norte,
+        },
+
+        condesa: {
+          name: 'Condesa',
+          icon: '',
+          icon_color: '#fff',
+          param: :area_condesa,
+        }
+      }
+
+      @filtered_params = params.permit(@filters.keys + [:location])
     end
 
 

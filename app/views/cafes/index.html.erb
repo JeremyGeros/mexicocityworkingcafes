@@ -1,48 +1,61 @@
-<div class='flex'>
-
-  <div class='w-1/6 border-r border-r-main-border px-8 pt-20 min-h-screen'>
-    <a href="<%= root_path %>" class='flex items-center px-4 py-2 hover:bg-zinc-800 rounded cursor-pointer mb-2 <%= class_if(@filtered_params.empty?, 'bg-blue') %>'>
-      <h3>All</h3>
-    </a>
-    <% @filters.each do |filter_key, filter_data| %>
-      <a href="<%= @filtered_params[filter_key].present? ? root_path(@filtered_params.except(filter_key)) : root_path(@filtered_params.merge({ filter_key => filter_data[:param] })) %>" class='flex items-center px-4 py-2 hover:bg-zinc-800 rounded cursor-pointer mb-2 <%= class_if(@filtered_params[filter_key].present?, 'bg-blue') %>'>
-        <div class='mr-2'>
-          <%= icon(filter_data[:icon], icon_color: filter_data[:icon_color]) %>
-        </div>
-        <h3><%= filter_data[:name] %></h3>
-      </a>
-    <% end %>
+<div class=''>
+  <div class='flex border-b border-b-dark-border p-4 items-center'>
+    <%= image_tag 'logo.png', size: '40x40', class: 'mr-4 rounded h-[40px] w-[40px]' %>
+    <h1 class="text-3xl font-bold mr-5 flex-1">Mexico City Working Cafes</h1>
+    <span class='italic text-slate-400'>A curated list of the best cafes in Mexico City for working (Work in progress)</span>
   </div>
+  <div class='flex'>
+    <div class='w-1/6 border-r border-r-main-border px-8 pt-6 min-h-screen'>
+      <a href="<%= root_path %>" class='flex items-center px-4 py-2 hover:bg-zinc-800 rounded cursor-pointer mb-2 <%= class_if(@filtered_params.empty?, 'bg-blue') %>'>
+        <h3>All</h3>
+      </a>
+      <% @filters.each do |filter_key, filter_data| %>
+        <a href="<%= @filtered_params[filter_key].present? ? root_path(@filtered_params.except(filter_key)) : root_path(@filtered_params.merge({ filter_key => filter_data[:param] })) %>" class='flex items-center px-4 py-2 hover:bg-zinc-800 rounded cursor-pointer mb-2 <%= class_if(@filtered_params[filter_key].present?, 'bg-blue') %>'>
+          <div class='mr-2'>
+            <%= icon(filter_data[:icon], icon_color: filter_data[:icon_color]) %>
+          </div>
+          <h3><%= filter_data[:name] %></h3>
+        </a>
+      <% end %>
+      <div class='h-1 my-4 border-b border-b-dark-border'></div>
+      <% @location_filters.each do |filter_key, filter_data| %>
+        <a href="<%= @filtered_params[filter_key].present? ? root_path(@filtered_params.except('location')) : root_path(@filtered_params.merge({ 'location' => filter_data[:param] })) %>" class='flex items-center px-4 py-2 hover:bg-zinc-800 rounded cursor-pointer mb-2 <%= class_if(@filtered_params['location'] == filter_data[:param].to_s, 'bg-blue') %>'>
+          <div class='mr-2'>
+            <%= icon(filter_data[:icon], icon_color: filter_data[:icon_color]) %>
+          </div>
+          <h3><%= filter_data[:name] %></h3>
+        </a>
+      <% end %>
+    </div>
 
-  <div class='flex-1'>
-    <div class='h-fit'>
-      <h1 class="text-3xl p-3 font-bold font-serif border-b border-b-dark-border">Mexico City Working Cafes</h1>
+    <div class='flex-1'>
+      <div class='h-fit'>
 
-      <table class='w-full'>
-        <thead>
-          <tr class='px-2 py-2'>
-            <th class='w-[16px] mr-2'></th>
-            <th class='px-2'>Name</th>
-            <th class='min-w-[100px] px-2'>Rating</th>
-            <th class='w-20 text-center px-2'>Coffee</th>
-            <th class='w-20 text-center px-2'>Plugs?</th>
-            <th class='px-2'>Seating</th>
-            <th class='px-2'>Outdoor</th>
-            <th class='px-2'>Calls</th>
-          </tr>
-        </thead>
-        <tbody>
-        <% @cafes_by_area.each do |area, cafes| %>
-          <tr><td colspan='8'><h2 class='text-xl bg-main-gray p-2'><%= area.gsub("area_", '').gsub("_", " ").titleize %></h2></td></tr>
-          <% cafes.each_with_index do |cafe, index| %>
-            <%= render 'cafes/row', cafe: cafe, index: index %>
+        <table class='w-full'>
+          <thead>
+            <tr class='px-2 py-2'>
+              <th class='w-[16px] mr-2'></th>
+              <th class='px-2 min-wtext-left'>Name</th>
+              <th class='min-w-[100px] text-left px-2'>Rating</th>
+              <th class='w-20 text-left px-2'>Coffee</th>
+              <th class='w-20 text-left px-2'>Plugs?</th>
+              <th class='px-2 text-left'>Seating</th>
+              <th class='px-2 text-left'>Outdoor</th>
+              <th class='px-2 text-left'>Calls</th>
+            </tr>
+          </thead>
+          <tbody>
+          <% @cafes_by_area.each do |area, cafes| %>
+            <tr><td colspan='8'><h2 class='text-xl bg-main-gray p-2'><%= area.gsub("area_", '').gsub("_", " ").titleize %></h2></td></tr>
+            <% cafes.each_with_index do |cafe, index| %>
+              <%= render 'cafes/row', cafe: cafe, index: index %>
+            <% end %>
           <% end %>
-        <% end %>
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>
-
 
 <%= render 'cafes/slide_over' %>
