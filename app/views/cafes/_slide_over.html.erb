@@ -81,9 +81,9 @@
                       <%= icon('upload', icon_color: '#b477f7') %>
                       <span class='ml-2' data-slide-over-target='uploadSpeed'>7mbps</span>
                     </div>
-                    <div class='w-5/12' data-bs-toggle="tooltip" title="Click to copy password" data-action='click->slide-over#copy'>
+                    <div class='w-5/12' data-bs-toggle="tooltip" title="Click to copy password">
                       <div class='text-xs break-all'>Name: <span data-slide-over-target='wifiName'></span></div>
-                      <div class='text-xs break-all'>Password: <span data-slide-over-target='wifiPassword'></span></div>
+                      <div class='text-xs break-all' data-controller="copy" data-action='copy#copy'>Password: <span data-slide-over-target='wifiPassword'></span></div>
                     </div>
                   </div>
                 </div>

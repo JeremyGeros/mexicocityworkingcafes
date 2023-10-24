@@ -1,14 +1,5 @@
 import { Controller } from '@hotwired/stimulus';
 
-function copyToClipboard(text) {
-	const elem = document.createElement('textarea');
-	elem.value = text;
-	document.body.appendChild(elem);
-	elem.select();
-	document.execCommand('copy');
-	document.body.removeChild(elem);
-}
-
 export default class extends Controller {
 	static get targets() {
 		return [
@@ -134,15 +125,6 @@ export default class extends Controller {
 		this.googleMapsLinkTarget.href = cafeInformation.google_link;
 
 		this.initMap();
-	}
-
-	copy() {
-		copyToClipboard(this.cafeInformationValue.wifi_password);
-		this.wifiPasswordTarget.innerHTML = 'Copied!';
-		setTimeout(() => {
-			this.wifiPasswordTarget.innerHTML =
-				this.cafeInformationValue.wifi_password;
-		}, 5000);
 	}
 
 	initMap() {

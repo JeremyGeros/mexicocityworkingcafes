@@ -1,36 +1,132 @@
 <div class=''>
-  <div class='flex border-b border-b-dark-border p-4 items-center'>
-    <%= image_tag 'logo.png', size: '40x40', class: 'mr-4 rounded h-[40px] w-[40px]' %>
-    <h1 class="text-3xl font-bold mr-5 flex-1">Mexico City Working Cafes</h1>
+  <div class='block border-b border-b-dark-border p-4 items-center lg:flex'>
+    <div class='flex items-center mb-2 lg:mb-0'>
+      <%= image_tag 'logo.png', size: '40x40', class: 'mr-4 rounded h-[40px] w-[40px]' %>
+      <h1 class="text-2xl lg:text-3xl font-bold mr-5 flex-1">Mexico City Working Cafes</h1>
+    </div>
     <span class='italic text-slate-400'>A curated list of the best cafes in Mexico City for working (Work in progress)</span>
   </div>
-  <div class='flex'>
-    <div class='w-1/6 border-r border-r-main-border px-8 pt-6 min-h-screen'>
-      <a href="<%= root_path %>" class='flex items-center px-4 py-2 hover:bg-zinc-800 rounded cursor-pointer mb-2 <%= class_if(@filtered_params.empty?, 'bg-blue') %>'>
-        <h3>All</h3>
-      </a>
-      <% @filters.each do |filter_key, filter_data| %>
-        <a href="<%= @filtered_params[filter_key].present? ? root_path(@filtered_params.except(filter_key)) : root_path(@filtered_params.merge({ filter_key => filter_data[:param] })) %>" class='flex items-center px-4 py-2 hover:bg-zinc-800 rounded cursor-pointer mb-2 <%= class_if(@filtered_params[filter_key].present?, 'bg-blue') %>'>
-          <div class='mr-2'>
-            <%= icon(filter_data[:icon], icon_color: filter_data[:icon_color]) %>
-          </div>
-          <h3><%= filter_data[:name] %></h3>
+  <div class='lg:flex'>
+
+    <div class='lg:w-1/6 border-r border-r-main-border' data-controller="filters-toggle">
+      <div class='block lg:hidden p-4 pb-0'>
+        <button class='btn btn-blue w-full' data-action="filters-toggle#toggle">Filter <span class='font-normal'><%= list_of_filters %></span></button>
+      </div>
+
+      <div class='p-4 lg:px-8 lg:pt-6 lg:min-h-screen hidden lg:block' data-filters-toggle-target="filters">
+        <a href="<%= root_path %>" class='flex items-center px-4 py-2 hover:bg-zinc-800 rounded cursor-pointer mb-2 <%= class_if(@filtered_params.empty?, 'bg-blue') %>'>
+          <h3>All</h3>
         </a>
-      <% end %>
-      <div class='h-1 my-4 border-b border-b-dark-border'></div>
-      <% @location_filters.each do |filter_key, filter_data| %>
-        <a href="<%= @filtered_params[filter_key].present? ? root_path(@filtered_params.except('location')) : root_path(@filtered_params.merge({ 'location' => filter_data[:param] })) %>" class='flex items-center px-4 py-2 hover:bg-zinc-800 rounded cursor-pointer mb-2 <%= class_if(@filtered_params['location'] == filter_data[:param].to_s, 'bg-blue') %>'>
-          <div class='mr-2'>
-            <%= icon(filter_data[:icon], icon_color: filter_data[:icon_color]) %>
-          </div>
-          <h3><%= filter_data[:name] %></h3>
-        </a>
-      <% end %>
+        <% @filters.each do |filter_key, filter_data| %>
+          <a href="<%= @filtered_params[filter_key].present? ? root_path(@filtered_params.except(filter_key)) : root_path(@filtered_params.merge({ filter_key => filter_data[:param] })) %>" class='flex items-center px-4 py-2 hover:bg-zinc-800 rounded cursor-pointer mb-2 <%= class_if(@filtered_params[filter_key].present?, 'bg-blue') %>'>
+            <div class='mr-2'>
+              <%= icon(filter_data[:icon], icon_color: filter_data[:icon_color]) %>
+            </div>
+            <h3><%= filter_data[:name] %></h3>
+          </a>
+        <% end %>
+        <div class='h-1 my-4 border-b border-b-dark-border'></div>
+        <% @location_filters.each do |filter_key, filter_data| %>
+          <a href="<%= @filtered_params[filter_key].present? ? root_path(@filtered_params.except('location')) : root_path(@filtered_params.merge({ 'location' => filter_data[:param] })) %>" class='flex items-center px-4 py-2 hover:bg-zinc-800 rounded cursor-pointer mb-2 <%= class_if(@filtered_params['location'] == filter_data[:param].to_s, 'bg-blue') %>'>
+            <div class='mr-2'>
+              <%= icon(filter_data[:icon], icon_color: filter_data[:icon_color]) %>
+            </div>
+            <h3><%= filter_data[:name] %></h3>
+          </a>
+        <% end %>
+      </div>
     </div>
 
-    <div class='flex-1'>
-      <div class='h-fit'>
 
+    <div class='cards lg:hidden flex flex-col gap-4 p-4 w-screen'>
+      <% @cafes_by_area.each do |area, cafes| %>
+        <h1 class='text-3xl border-b border-b-main-border p-2 font-bold'><%= area.gsub("area_", '').gsub("_", " ").titleize %></h1>
+        <% cafes.each_with_index do |cafe, index| %>
+          <div class='rounded border border-main-border p-4 flex gap-2 flex-col'>
+            <div class='flex items-center gap-2'>
+              <h2 class='flex gap-2 items-center flex-1 text-xl font-bold'><span><%= cafe.name %></span></h2>
+              
+            </div>
+
+            <div class='flex items-center gap-2 mb-2'>
+              <div class='flex-1'>
+                <h4 class='mb-1 text-slate-400 italic'>Rating</h4>
+                <%= render 'cafes/star_rating', model: cafe, field: :overall_rating, size: 5 %>
+              </div>
+              <div class='flex-1'>
+                <h4 class='mb-1 text-slate-400 italic'>Rating</h4>
+                <%= icon('coffee', icon_color: color_for_rating(cafe.coffee_before_type_cast)) %>
+              </div>
+
+              <div class=''>
+                <h4 class='mb-1 text-slate-400 italic'>Plugs</h4>
+                <%= icon('plugs', icon_color: color_for_bool(cafe.plugs)) %>
+              </div>
+            </div>
+
+            <div class='w-full mb-2'>
+              <h4 class='mb-1 text-slate-400 italic'>Wifi</h4>
+              <div class='flex items-center'>
+                <%= icon('wifi', icon_color: color_for_rating(cafe.wifi_before_type_cast)) %>
+                <div class='flex-1 flex justify-center items-center'>
+                  <%= icon('download', icon_color: '#93fcf2') %>
+                  <span class='ml-2 mr-4' data-slide-over-target='downloadSpeed'><%= cafe.download_speed %></span>
+                  <%= icon('upload', icon_color: '#b477f7') %>
+                  <span class='ml-2' data-slide-over-target='uploadSpeed'><%= cafe.upload_speed %></span>
+                </div>
+                <div class='w-5/12' data-bs-toggle="tooltip" title="Click to copy password">
+                  <div class='text-xs break-all'>Name: <span data-slide-over-target='wifiName'><%= cafe.wifi_name %></span></div>
+                  <div class='text-xs break-all' data-controller="copy" data-copy-copy-text-value="<%= cafe.wifi_password %>">Password: <span data-slide-over-target='wifiPassword' data-action="click->copy#copy"><%= cafe.wifi_password %></span></div>
+                </div>
+              </div>
+            </div>
+
+            <div class='w-full mb-2 flex'>
+              <div class='flex-1'>
+                <h4 class='mb-1 text-slate-400 italic'>Seating</h4>
+                <div class='' data-slide-over-target='seating'><%= cafe.seating %></div>
+              </div>
+              <div class='flex-1'>
+                <h4 class='mb-1 text-slate-400 italic'>Outdoor</h4>
+                <div class='' data-slide-over-target='outdoorSeating'><%= cafe.outdoor %></div>
+              </div>
+            </div>
+
+            <div class='w-full mb-2 flex'>
+              <div class='flex-1'>
+                <h4 class='mb-1 text-slate-400 italic'>Other people working</h4>
+                <div class='' data-slide-over-target='otherPeopleWorking'><%= cafe.other_people_working %></div>
+              </div>
+              <div class='flex-1'>
+                <h4 class='mb-1 text-slate-400 italic'>Food</h4>
+                <div class='' data-slide-over-target='food'><%= cafe.food %></div>
+              </div>
+            </div>
+
+            <div class=''>
+              <h4 class='mb-1 text-slate-400 italic''>Calls</h4>
+              <p><%= cafe.calls %></p>
+            </div>
+
+            <% if cafe.notes.present? %>
+              <div class=''>
+                <h4 class='mb-1 text-slate-400 italic''>Notes</h4>
+                <p><%= cafe.notes %></p>
+              </div>
+            <% end %>
+
+            <div class='w-full mb-2'>
+              <h4 class='mb-1 text-slate-400 italic'>Address</h4>
+              <div class='flex items-center' data-slide-over-target='address'>
+                <%= cafe.address %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+    <div class='flex-1 hidden lg:table'>
+      <div class='h-fit'>
         <table class='w-full'>
           <thead>
             <tr class='px-2 py-2'>

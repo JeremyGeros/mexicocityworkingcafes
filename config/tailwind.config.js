@@ -45,6 +45,11 @@ module.exports = {
 				lg: '0 8px 16px var(--tw-shadow-color)',
 			},
 
+			// highlight-white/20 = box-shadow: inset 0 1px 0 0 #fff3;
+			boxShadow: {
+				btn: 'inset 0 1px 0 0 #ffffff1a',
+			},
+
 			btnShadow: {
 				primaryLight:
 					'inset 0 1px 0 0 rgba(255, 255, 255, 0.1), inset 0 0 0 0 rgba(0,0,0,0), inset 0 0 0 0 rgba(0,0,0,0), 0 0 0 1px rgba(43, 48, 91, 0.85), 0 2px 1px 0 rgba(9, 11, 20, 0.12), 0 2px 3px 0 rgba(9, 11, 20, 0.18), 0 0 0 0 rgba(0,0,0,0), 0 0 0 0 rgba(0,0,0,0)',

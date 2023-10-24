@@ -1,4 +1,10 @@
 module ApplicationHelper
+  
+  def list_of_filters
+    if @filtered_params.keys.any?
+      "(#{@filtered_params.keys.map{|key| @filters.dig(key.to_sym, :name)}.join(', ')})"
+    end
+  end
 
   def class_if(condition, klass)
     condition ? klass : ''
