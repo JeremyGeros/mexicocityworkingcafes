@@ -44,7 +44,7 @@ class Cafe < ApplicationRecord
 
     ac = ActionController::Base.new
     ac.view_context_class.include(ActionView::Helpers, ApplicationHelper)
-    rating_html = ac.render_to_string(partial: "cafes/star_rating", locals: { model: self, field: :overall_rating, size: 5 })
+    rating_html = ac.render_to_string(partial: "cafes/star_rating", locals: { model: self, field: :overall_rating, size: 5, styling: 'json' })
     json['rating_html'] = rating_html
 
     json

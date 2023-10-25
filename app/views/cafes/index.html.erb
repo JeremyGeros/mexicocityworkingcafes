@@ -51,7 +51,7 @@
             <div class='flex items-center gap-2 mb-2'>
               <div class='flex-1'>
                 <h4 class='mb-1 text-slate-400 italic'>Rating</h4>
-                <%= render 'cafes/star_rating', model: cafe, field: :overall_rating, size: 5 %>
+                <%= render 'cafes/star_rating', model: cafe, field: :overall_rating, size: 5, styling: 'card' %>
               </div>
               <div class='flex-1'>
                 <h4 class='mb-1 text-slate-400 italic'>Rating</h4>
@@ -142,7 +142,7 @@
           </thead>
           <tbody>
           <% @cafes_by_area.each do |area, cafes| %>
-            <tr><td colspan='8'><h2 class='text-xl bg-main-gray p-2'><%= area.gsub("area_", '').gsub("_", " ").titleize %></h2></td></tr>
+            <tr><td colspan='8'><h2 class='text-2xl bg-main-gray p-2 font-bold text-yellow-700'><%= area.gsub("area_", '').gsub("_", " ").titleize %></h2></td></tr>
             <% cafes.each_with_index do |cafe, index| %>
               <%= render 'cafes/row', cafe: cafe, index: index %>
             <% end %>
