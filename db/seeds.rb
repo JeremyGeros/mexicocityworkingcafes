@@ -26,7 +26,7 @@ CSV.foreach(Rails.root.join('lib/cafes.csv'), headers: true) do |row|
     other_people_working: row['Other People Working'],
     calls: row['Calls'],
     overall_rating: row['Overall'].to_i,
-    notes: row['Notes'],
+    notes: row['VIBE'],
     address: row['Address'],
     area: "area_#{row['Area'].downcase.gsub(' ', '_')}".to_sym,
     google_link: row['Map Link'],

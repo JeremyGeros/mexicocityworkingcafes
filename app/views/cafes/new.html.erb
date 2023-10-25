@@ -15,12 +15,17 @@
       <div class='flex-1'>
         <p class='mb-2 border-b border-btn-gray'>Fill in the google maps link or the address</p>
         <%= form.label :google_link, 'Google maps link' %>
-        <%= form.text_field :google_link, placeholder: 'Google maps link', class: 'text-input w-full text-2xl' %>
+        <%= form.text_field :google_link, placeholder: 'Google maps link', class: 'text-input w-full' %>
       </div>
 
       <div class='flex-1'>
         <%= form.label :address, 'Address' %>
-        <%= form.text_field :address, placeholder: 'Address', class: 'text-input w-full text-2xl' %>
+        <%= form.text_field :address, placeholder: 'Address', class: 'text-input w-full ' %>
+      </div>
+
+      <div class='flex-1'>
+        <%= form.label :notes, 'Notes' %>
+        <%= form.text_area :notes, placeholder: 'Anything else we should know', class: 'text-input w-full' %>
       </div>
 
       <div class='flex-1'>
