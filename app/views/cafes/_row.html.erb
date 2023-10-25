@@ -32,6 +32,10 @@
 
   <td class='px-2'>
     <%= cafe.notes %>
+
+    <% if cafe.needs_review %>
+      <%= link_to 'Delete', cafe_path(cafe), class: 'btn btn-danger', data: { turbo_method: :delete} %>
+    <% end %>
   </td>
 
 

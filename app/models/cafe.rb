@@ -11,7 +11,9 @@ class Cafe < ApplicationRecord
 
   geocoded_by :address
 
-  validates :name, :wifi, presence: true
+  # validates :name, :wifi, presence: true
+
+  scope :reviewed, -> { where(needs_review: false) }
 
   enum wifi: {
     wifi_none: 0,

@@ -6,7 +6,12 @@ class CafesController < ApplicationController
 
   def index
     params[:no_header] = true
-    @cafes = Cafe.order(:name)
+    @cafes = Cafe.reviewed.order(:name)
+
+    if params[:needs_review].present?
+      @cafes = Cafe.where(needs_review: true).order(:name)
+    end
+
     if params[:wifi].present?
       @cafes = @cafes.where(wifi: params[:wifi])
     end
@@ -54,12 +59,29 @@ class CafesController < ApplicationController
 
   end
 
-  def edit
+  def new
+  end
+
+  def create
+    @cafe = Cafe.new(cafe_params)
+    @cafe.needs_review = true
+    @cafe.save!
+
+    redirect_to root_path
+  end
+
+  def destroy
+    @cafe = Cafe.find(params[:id])
+    if @cafe.needs_review
+      @cafe.destroy
+    end
+
+    redirect_to root_path(needs_review: true)
   end
 
   private
     def set_cafe
-      @cafe = Cafe.find(params[:id])
+      @cafe = Cafe.reviewed.find(params[:id])
     end
 
     def filters
@@ -153,6 +175,7 @@ class CafesController < ApplicationController
       params.require(:cafe).permit(
         :name, :wifi, :wifi_name, :wifi_password, :cdmx_wifi, :coffee, :plugs, 
         :seating, :outdoor, :food, :other_people_working, :calls, :overall_rating, 
+        :google_link,
         :notes, :address, :area, :hero_image, :speed_test, images: []
       )
     end
