@@ -2,6 +2,8 @@ class CafesController < ApplicationController
   before_action :set_cafe, only: [:show, :edit, :update]
   before_action :filters, only: [:index]
 
+  # before_action :basic_auth, only: [:edit, :update]
+
   def index
     params[:no_header] = true
     @cafes = Cafe.order(:name)
@@ -153,6 +155,12 @@ class CafesController < ApplicationController
         :seating, :outdoor, :food, :other_people_working, :calls, :overall_rating, 
         :notes, :address, :area, :hero_image, :speed_test, images: []
       )
+    end
+
+    def basic_auth
+      # authenticate_or_request_with_http_basic do |username, password|
+      #   username == ENV['ADMIN_USERNAME'] && password == ENV['ADMIN_PASSWORD']
+      # end
     end
 
 end
